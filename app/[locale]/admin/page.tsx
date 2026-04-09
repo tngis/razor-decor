@@ -372,7 +372,7 @@ export default function AdminPage({ params }: { params: { locale: string } }) {
                     <div className="mt-6 p-4 bg-accent-gold/10 border border-accent-gold/30 rounded-lg">
                       <p className="text-sm text-accent-gold font-semibold flex items-center space-x-2">
                         <span>⚠️</span>
-                        <span>Payment verification required. Click "Received" to verify payment.</span>
+                        <span>Payment verification required. Click &ldquo;Received&rdquo; to verify payment.</span>
                       </p>
                     </div>
                   )}

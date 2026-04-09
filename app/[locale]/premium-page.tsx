@@ -30,7 +30,7 @@ export default function PremiumHomePage({ params }: { params: { locale: string }
     }
   };
 
-  const categories = ['all', ...new Set(products.map((p) => p.category))];
+  const categories = ['all', ...Array.from(new Set(products.map((p) => p.category)))];
 
   const filteredProducts = products.filter((product) => {
     const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;

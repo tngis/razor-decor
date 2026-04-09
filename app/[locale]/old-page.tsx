@@ -29,7 +29,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
     }
   };
 
-  const categories = ['all', ...new Set(products.map((p) => p.category))];
+  const categories = ['all', ...Array.from(new Set(products.map((p) => p.category)))];
 
   const filteredProducts =
     selectedCategory === 'all'
