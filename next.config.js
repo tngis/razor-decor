@@ -11,6 +11,14 @@ const nextConfig = {
       },
     ],
   },
+  webpack: (config, { isServer }) => {
+    // Exclude functions directory from webpack build
+    config.watchOptions = {
+      ...config.watchOptions,
+      ignored: ['**/node_modules', '**/functions/**'],
+    };
+    return config;
+  },
 };
 
 module.exports = withNextIntl(nextConfig);

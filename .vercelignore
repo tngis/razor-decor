@@ -1,0 +1,15 @@
+# Firebase Cloud Functions (deployed separately)
+functions/
+
+# Firebase files
+firebase-service-account.json
+firebase-debug.log
+firebase-debug.*.log
+.firebase/
+
+# Local scripts
+scripts/
+
+# Test and build artifacts
+coverage/
+*.tsbuildinfo
