@@ -1,0 +1,13 @@
+{
+  "name": "razor-decor-scripts",
+  "version": "1.0.0",
+  "description": "Database setup scripts for Razor Decor",
+  "scripts": {
+    "setup": "node setup-database.js",
+    "create-admin": "node create-admin.js",
+    "update-role": "node update-user-role.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.0.0"
+  }
+}

@@ -1,0 +1,24 @@
+import { create } from 'zustand';
+import { User } from '@/types';
+
+interface AuthState {
+  user: User | null;
+  loading: boolean;
+  setUser: (user: User | null) => void;
+  setLoading: (loading: boolean) => void;
+  isAdmin: () => boolean;
+}
+
+export const useAuthStore = create<AuthState>((set, get) => ({
+  user: null,
+  loading: true,
+
+  setUser: (user) => set({ user, loading: false }),
+
+  setLoading: (loading) => set({ loading }),
+
+  isAdmin: () => {
+    const user = get().user;
+    return user?.role === 'admin';
+  },
+}));
