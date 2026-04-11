@@ -55,11 +55,9 @@ export const PremiumHeader = ({ locale }: { locale: string }) => {
           <motion.div
             whileHover={{ scale: 1.02 }}
             onClick={() => router.push(`/${locale}`)}
-            className="cursor-pointer flex items-center space-x-3"
+            className="cursor-pointer flex items-center space-x-3 h-16"
           >
-            <div className="text-3xl font-serif font-bold metallic-text tracking-tight">
-              RAZOR DECOR
-            </div>
+            <img src="/logo.png" alt="logo" className='h-full' />
           </motion.div>
 
           {/* Desktop Navigation */}

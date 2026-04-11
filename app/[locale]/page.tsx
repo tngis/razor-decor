@@ -5,12 +5,13 @@ import { useRouter } from 'next/navigation';
 import { getProducts, getServices } from '@/lib/firebase/firestore';
 import { Product, Service } from '@/types';
 import { PremiumProductCard } from '@/components/product/PremiumProductCard';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { Search, SlidersHorizontal, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 
 export default function PremiumHomePage({ params }: { params: { locale: string } }) {
   const router = useRouter();
+  const reduceMotion = useReducedMotion();
   const [products, setProducts] = useState<Product[]>([]);
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
@@ -70,59 +71,114 @@ export default function PremiumHomePage({ params }: { params: { locale: string }
     );
   }
 
+  const heroObjectImage = (
+    // eslint-disable-next-line @next/next/no-img-element -- large pattern-based SVG from public/
+    <img
+      src="/Object.svg"
+      alt="Razor Decor — custom metal art"
+      width={553}
+      height={431}
+      className="w-full h-full object-contain drop-shadow-[0_25px_50px_-12px_rgba(0,0,0,0.35)]"
+      draggable={false}
+    />
+  );
+
   return (
     <div className="min-h-screen pt-20 ">
-      {/* Hero Section - Minimal & Sophisticated */}
-      <section className="relative py-24 md:py-32 overflow-hidden bg-gradient-to-tr from-platinum-400 to-platinum-0">
-        {/* Subtle Background Pattern */}
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(circle at 1px 1px, #9E9E9E 1px, transparent 0)',
-            backgroundSize: '40px 40px'
-          }} />
+      {/* Hero — 3D object + copy */}
+      <section className="relative min-h-[calc(100vh-5rem)] md:min-h-0 py-16 md:py-24 lg:py-28 overflow-hidden bg-gradient-to-br from-platinum-200/80 via-platinum-50 to-white">
+        <div className="absolute inset-0 opacity-[0.35] pointer-events-none">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: 'radial-gradient(circle at 1px 1px, #9E9E9E 1px, transparent 0)',
+              backgroundSize: '40px 40px',
+            }}
+          />
         </div>
+        <div
+          className="absolute top-1/4 -right-24 w-[min(520px,90vw)] h-[min(520px,90vw)] rounded-full opacity-40 blur-3xl pointer-events-none bg-[radial-gradient(circle_at_30%_30%,rgba(212,175,55,0.35),transparent_65%)]"
+          aria-hidden
+        />
+        <div
+          className="absolute bottom-0 left-0 w-72 h-72 rounded-full opacity-30 blur-3xl pointer-events-none bg-[radial-gradient(circle_at_center,rgba(52,58,64,0.12),transparent_70%)]"
+          aria-hidden
+        />
 
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
-          >
-            {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="text-sm font-medium text-platinum-600 tracking-widest uppercase mb-6"
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+              className="text-center lg:text-left order-2 lg:order-1"
             >
-              Est. 2024 — Ulaanbaatar, Mongolia
-            </motion.p>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.12 }}
+                className="text-sm font-medium text-platinum-600 tracking-[0.2em] uppercase mb-5"
+              >
+                Est. 2024 — Ulaanbaatar, Mongolia
+              </motion.p>
 
-            {/* Main Headline */}
-            <h1 className="text-5xl md:text-7xl font-serif font-bold text-platinum-900 mb-6 tracking-tight">
-              Razor Decor
-            </h1>
+              <h1 className="text-5xl sm:text-6xl md:text-7xl font-serif font-bold text-platinum-950 mb-6 tracking-tight leading-[1.05]">
+                Razor Decor
+              </h1>
 
-            <div className="w-16 h-px bg-platinum-400 mx-auto mb-8" />
+              <div className="w-16 h-px bg-gradient-to-r from-transparent via-platinum-500 to-transparent mx-auto lg:mx-0 mb-8" />
 
-            <p className="text-xl md:text-2xl text-platinum-600 max-w-3xl mx-auto mb-12 leading-relaxed font-light">
-              Where craftsmanship meets innovation. Custom laser-cut metal décor
-              <br className="hidden md:block" />
-              designed for modern spaces.
-            </p>
+              <p className="text-lg sm:text-xl md:text-2xl text-platinum-600 max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed font-light">
+                Where craftsmanship meets innovation. Custom laser-cut metal décor designed for modern spaces.
+              </p>
 
-            {/* CTA Button */}
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' })}
-              className="inline-flex items-center space-x-2 px-8 py-4 rounded-lg bg-platinum-900 text-white font-semibold hover:bg-platinum-800 transition-all duration-300 shadow-premium"
+              <motion.button
+                whileHover={reduceMotion ? undefined : { scale: 1.02 }}
+                whileTap={reduceMotion ? undefined : { scale: 0.98 }}
+                onClick={() => document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' })}
+                className="inline-flex items-center space-x-2 px-8 py-4 rounded-lg bg-platinum-900 text-white font-semibold hover:bg-platinum-800 transition-colors duration-300 shadow-premium-lg"
+              >
+                <span>View Collection</span>
+                <ChevronRight className="w-5 h-5" strokeWidth={2} />
+              </motion.button>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.94 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.9, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+              className="relative flex justify-center lg:justify-end order-1 lg:order-2"
             >
-              <span>View Collection</span>
-              <ChevronRight className="w-5 h-5" strokeWidth={2} />
-            </motion.button>
-          </motion.div>
+              <div className="relative w-full max-w-[420px] sm:max-w-[480px] lg:max-w-[520px] aspect-[553/431]">
+                <div
+                  className="absolute inset-[-8%] rounded-[40%] opacity-90 blur-2xl pointer-events-none bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.22)_0%,rgba(206,212,218,0.35)_45%,transparent_72%)]"
+                  aria-hidden
+                />
+                <div
+                  className="absolute inset-0 rounded-3xl border border-white/60 bg-white/25 shadow-premium-xl backdrop-blur-[2px] pointer-events-none"
+                  aria-hidden
+                />
+                {reduceMotion ? (
+                  <div className="relative w-full h-full p-4 sm:p-6">{heroObjectImage}</div>
+                ) : (
+                  <motion.div
+                    className="relative w-full h-full p-4 sm:p-6"
+                    animate={{
+                      y: [0, -14, 0],
+                      rotate: [0, 1.2, 0, -1.2, 0],
+                    }}
+                    transition={{
+                      duration: 7,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                    }}
+                  >
+                    {heroObjectImage}
+                  </motion.div>
+                )}
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
