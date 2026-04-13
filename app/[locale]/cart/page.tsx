@@ -38,7 +38,7 @@ export default function CartPage({ params }: { params: { locale: string } }) {
           <h2 className="text-3xl font-serif font-bold text-platinum-900 mb-4">{t('empty')}</h2>
           <p className="text-platinum-600 mb-8">Your shopping cart is waiting to be filled</p>
           <button
-            onClick={() => router.push(`/${params.locale}`)}
+            onClick={() => router.push(`/${params.locale}/products`)}
             className="inline-flex items-center space-x-2 px-6 py-3 rounded-lg bg-platinum-900 text-white font-semibold hover:bg-platinum-800 transition-all duration-300 shadow-premium"
           >
             <span>{t('continueShopping')}</span>
@@ -181,7 +181,7 @@ export default function CartPage({ params }: { params: { locale: string } }) {
               </button>
 
               <button
-                onClick={() => router.push(`/${params.locale}`)}
+                onClick={() => router.push(`/${params.locale}/products`)}
                 className="w-full py-4 rounded-lg bg-white border-2 border-platinum-200 text-platinum-900 font-semibold hover:border-platinum-400 hover:bg-platinum-50 transition-all duration-300"
               >
                 {t('continueShopping')}
